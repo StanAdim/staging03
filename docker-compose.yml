@@ -1,0 +1,24 @@
+services:
+
+  staging03:
+    container_name: staging03
+    build: .
+    volumes:
+      - ./staging03:/var/www/html
+    ports:
+      - 9033:80
+  
+  mysql_db:
+    image: mysql:8.0.33
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: staging03
+    ports:
+    - 3366:3306
+  
+  phpmyadmin:
+    image: phpmyadmin:5.2.1
+    ports:
+      - 9001:80
+    environment:
+      - PMA_ARBITRARY=1
